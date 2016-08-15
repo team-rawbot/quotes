@@ -1,4 +1,5 @@
 #!/bin/bash
+cp CNAME build/CNAME
 git stash save
 git checkout -B gh-pages
 git add -f build

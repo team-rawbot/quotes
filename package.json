@@ -1,7 +1,7 @@
 {
   "name": "quotes",
   "version": "0.0.1",
-  "homepage": "https://lebenleben.github.io/quotes",
+  "homepage": "http://quotes.rawbot.rocks",
   "private": true,
   "devDependencies": {
     "react-scripts": "0.2.1"
