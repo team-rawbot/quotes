@@ -22,17 +22,22 @@ export function load(cb) {
     }).then((response) => {
       const data = response.result.values || [],
             authors = [];
+      let quotes = [];
 
-      let quotes = data.map((quote, i) => {
+      data.forEach((quote, i) => {
         let row = i + 2,
             date = quote[0],
             dateParsed = Date.parse(date),
-            text = quote[1].split('\n'),
+            text = quote[1] && quote[1].split('\n'),
             author = quote[2] && quote[2].trim(),
             interlocutor = quote[3] || '',
             likes = parseInt(quote[4],10) || 0,
             id = hash(text),
             liked = false;
+
+        if (!text) {
+          return false;
+        }
 
         if (userLikes.indexOf(id) > -1) {
           liked = true;
@@ -46,7 +51,7 @@ export function load(cb) {
           authors.push(author);
         }
 
-        return {
+        quotes.push({
           row,
           date,
           text,
@@ -54,7 +59,7 @@ export function load(cb) {
           interlocutor,
           likes,
           liked
-        }
+        });
       });
 
       quotes = orderBy(quotes, ['date'], ['desc']);
